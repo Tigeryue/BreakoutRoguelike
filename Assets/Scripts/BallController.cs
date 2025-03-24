@@ -27,9 +27,6 @@ public class BallController : MonoBehaviour
     public float timeBetweenPoints = 0.1f;
     public LayerMask collidableLayers;
 
-    //管理buff
-    private List<Buff> buffList = new List<Buff>();
-
     private bool justLaunched = false; // 新增：标记小球是否刚刚发射
     private float launchProtectionTime = 0.1f; // 新增：发射后的保护时间
     private float launchProtectionTimer = 0f; // 新增：保护时间计时器
@@ -42,8 +39,6 @@ public class BallController : MonoBehaviour
 
         ballRadius = GetComponent<CircleCollider2D>().radius;
 
-        //初始化BUFF
-        UpdateBuffs();
     }
     void Update()
     {
@@ -242,22 +237,6 @@ public class BallController : MonoBehaviour
         }
     }
 
-
-//-------------------------------------------UFF管理------------------------------------------：
-    public void ApplyBuff(Buff buff)
-    {
-        buffList.Add(buff);
-        buff.Apply(this);
-    }
-
-    void UpdateBuffs()
-    {
-        foreach (var buff in buffList)
-        {
-            buff.UpdateBuff(this);
-        }
-    }
-
 //------------------------------------------死亡逻辑-------------------------------
     public void DisableControl()
     {
@@ -275,4 +254,16 @@ public class BallController : MonoBehaviour
         hitLocation = location;
     }
 */
+
+    public void SetInvincible(bool invincible)
+    {
+        if(invincible)
+        {
+            //TODO: 添加无敌效果
+        }
+        else
+        {
+            //TODO: 移除无敌效果
+        }
+    }
 }
