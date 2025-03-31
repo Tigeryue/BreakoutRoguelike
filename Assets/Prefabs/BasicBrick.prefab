@@ -127,4 +127,4 @@ MonoBehaviour:
   moveSpeed: 5
   fadeOutDuration: 0.1
   enableMoveAndFade: 1
-  score: 0
+  score: 1

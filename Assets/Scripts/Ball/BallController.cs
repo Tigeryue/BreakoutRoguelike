@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class BallController : MonoBehaviour
 {
     public float maxSpeed = 5f; // Max speed limit for the ball
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
     public float maxDragDistance = 0.1f;    // 最大拖拽距离（世界单位）
     public float speedFactor = 10f;       // 拖拽距离转换为速度的比例系数
     public float timeSlowFactor = 0.3f;        //拖拽时减慢时间系数
@@ -31,6 +31,8 @@ public class BallController : MonoBehaviour
     private float launchProtectionTime = 0.1f; // 新增：发射后的保护时间
     private float launchProtectionTimer = 0f; // 新增：保护时间计时器
 
+    protected List<Perk> activePerks = new List<Perk>();
+    public GameObject childBallPrefab;
     void Start()
     {
         // Get the Rigidbody2D component attached to the ball
@@ -264,6 +266,37 @@ public class BallController : MonoBehaviour
         else
         {
             //TODO: 移除无敌效果
+        }
+    }
+
+    public void Split(float splitAngle, int splitCount = 2)
+    {
+        // 获取当前速度
+        Vector2 currentVelocity = rb.velocity;
+        float currentSpeed = currentVelocity.magnitude;
+        
+        // 计算分裂角度间隔
+        float angleStep = splitAngle * 2 / splitCount;
+        
+        // 创建分裂小球
+        for (int i = 0; i <= splitCount; i++)
+        {
+            // 计算分裂后的速度方向
+            float angle = -splitAngle + angleStep * i;
+            if(angle == 0) continue;
+
+            Vector2 splitDirection = Quaternion.Euler(0, 0, angle) * currentVelocity.normalized;
+            Vector2 splitVelocity = splitDirection * currentSpeed;
+            
+            // 创建分裂小球
+            GameObject childBallObj = Instantiate(childBallPrefab, transform.position, Quaternion.identity);
+            ChildBall childBall = childBallObj.GetComponent<ChildBall>();
+            
+            if (childBall != null)
+            {
+                // 初始化分裂小球
+                childBall.Initialize(splitVelocity);
+            }
         }
     }
 }
