@@ -40,4 +40,25 @@ public class BallInvinciblePerk : Perk
             ball.SetInvincible(false);
         }
     }
-} 
+}
+
+[CreateAssetMenu(fileName = "BallSplitPerk", menuName = "Perks/Ball/BallSplitPerk")]
+public class BallSplitPerk : Perk
+{
+    public float splitAngle = 30f; // 分裂角度
+    
+    public override void ApplyEffect(GameObject target)
+    {
+        if (target.TryGetComponent<BallController>(out var ball))
+        {
+            ball.Split(splitAngle);
+        }
+    }
+    
+    public override void RemoveEffect(GameObject target)
+    {
+        // 分裂是一次性效果，不需要移除
+    }
+}
+
+

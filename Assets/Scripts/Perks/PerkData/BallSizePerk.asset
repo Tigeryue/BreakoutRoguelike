@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: BallSizePerk
+  m_EditorClassIdentifier: Assembly-CSharp::BallSizePerk
+  perkName: "\u5C0F\u7403\u53D8\u5927"
+  description: "\u4F60\u7684\u5C0F\u7403\u4F1A\u53D8\u59271.5\u500D\uFF01"
+  icon: {fileID: 0}
+  duration: 0
+  affectsBall: 1
+  affectsBrick: 0
+  sizeMultiplier: 1.5

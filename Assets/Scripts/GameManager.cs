@@ -33,7 +33,10 @@ public class GameManager : MonoBehaviour
 
     private int currentTripleBrickHits = 0; // 当前连续击中的TripleBrick数量
     private int cameraMovementChances = 0; // 可用的相机移动机会
-
+//------------------------perk--------------------------------
+    [Header("Perk Settings")]
+    [SerializeField] private PerkManager perkManager;
+    [SerializeField] private int perkScoreThreshold = 5; // 分数阈值
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -43,6 +46,10 @@ public class GameManager : MonoBehaviour
         }
         _instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+    private void Update()
+    {
+        
     }
 
     private void OnEnable()
@@ -74,6 +81,7 @@ public class GameManager : MonoBehaviour
     {
         score += points;
         Debug.Log("当前分数: " + score);
+        perkManager.CheckAndShowPerks((int)score, perkScoreThreshold);
         UIManager.Instance.UpdateScoreUI(score); // 更新 UI（如果有）
     }
 
