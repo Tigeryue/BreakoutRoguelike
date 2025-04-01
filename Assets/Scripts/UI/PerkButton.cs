@@ -11,7 +11,7 @@ public class PerkButton : MonoBehaviour
 
     public void Initialize(Perk perk)
     {
-        perkName.text = perk.name;
+        perkName.text = perk.perkName;
         perkDescription.text = perk.description;
         perkIcon.sprite = perk.icon;
     }

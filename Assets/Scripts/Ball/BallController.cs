@@ -256,7 +256,7 @@ public class BallController : MonoBehaviour
         hitLocation = location;
     }
 */
-
+//------------perk相关
     public void SetInvincible(bool invincible)
     {
         if(invincible)
@@ -298,5 +298,9 @@ public class BallController : MonoBehaviour
                 childBall.Initialize(splitVelocity);
             }
         }
+    }
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        maxSpeed *= multiplier;
     }
 }

@@ -9,8 +9,9 @@ public abstract class Perk : ScriptableObject
     public float duration = 0f;    // 持续时间（0表示永久效果）
     
     [Header("目标类型")]
-    public bool affectsBall = false;    // 是否影响小球
+    public bool affectsBall = true;    // 是否影响小球
     public bool affectsBrick = false;   // 是否影响砖块
+    public bool isOneTime = false;  // 是否是一次性 perk
     
     public abstract void ApplyEffect(GameObject target);
     public virtual void RemoveEffect(GameObject target) { }

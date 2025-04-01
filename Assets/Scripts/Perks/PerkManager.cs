@@ -14,9 +14,7 @@ public class PerkManager : MonoBehaviour
     [SerializeField] private GameObject perkSelectionUI;             // Perk 选择界面
     //[SerializeField] private Transform perkButtonContainer;          // Perk 按钮容器
     [Header("Perk 按钮预制体")]
-    [SerializeField] private Button perkButton1;
-    [SerializeField] private Button perkButton2;
-    [SerializeField] private Button perkButton3;
+    [SerializeField] private List<PerkButton> perkButtons;
     
     private List<Perk> currentActivePerks = new List<Perk>();
     private BallController mainBall;                                // 主球
@@ -64,7 +62,6 @@ public class PerkManager : MonoBehaviour
         
         // 随机选择3个perk
         var availablePerks = allPerks.OrderBy(p => Random.value).Take(perksToShow).ToList();
-       
         
         // 显示 perk 选择界面
         perkSelectionUI.SetActive(true);
@@ -73,9 +70,14 @@ public class PerkManager : MonoBehaviour
         for (int i = 0; i < availablePerks.Count; i++)
         {
             var perk = availablePerks[i];
-            var button = i == 0 ? perkButton1 : i == 1 ? perkButton2 : perkButton3;
+            var button = perkButtons[i].GetComponent<Button>();
+            
+            // 移除所有旧的点击事件
+            button.onClick.RemoveAllListeners();
+            
+            // 添加新的点击事件
             button.onClick.AddListener(() => ApplyPerk(perk));
-            button.GetComponent<PerkButton>().Initialize(perk);
+            perkButtons[i].GetComponent<PerkButton>().Initialize(perk);
         }
     }
 
@@ -85,10 +87,17 @@ public class PerkManager : MonoBehaviour
         // 只对主球应用新的 perk
         if (mainBall != null && perk.affectsBall)
         {
+            // 保存当前速度
+            Vector2 currentVelocity = mainBall.GetComponent<Rigidbody2D>().velocity;
+            
+            // 应用 perk
             perk.ApplyEffect(mainBall.gameObject);
             
+            // 恢复速度
+            mainBall.GetComponent<Rigidbody2D>().velocity = currentVelocity;
+            
             // 只有非一次性 perk 才添加到当前激活列表
-            if (!(perk is BallSplitPerk))
+            if (!perk.isOneTime)
             {
                 currentActivePerks.Add(perk);
                 

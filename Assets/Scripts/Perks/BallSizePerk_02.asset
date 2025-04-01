@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: BallSizePerk
+  m_Name: BallSizePerk_02
   m_EditorClassIdentifier: Assembly-CSharp::BallSizePerk
-  perkName: "\u5C0F\u7403\u53D8\u5927"
-  description: "\u4F60\u7684\u5C0F\u7403\u4F1A\u53D8\u59271.5\u500D\uFF01"
+  perkName: 10% Smaller
+  description: Make the ball 10% smaller
   icon: {fileID: 0}
   duration: 0
   affectsBall: 1
   affectsBrick: 0
-  sizeMultiplier: 1.5
+  sizeMultiplier: 0.9
+  perkDescription: 

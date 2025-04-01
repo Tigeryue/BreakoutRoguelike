@@ -4,6 +4,7 @@ using UnityEngine;
 public class BallSizePerk : Perk
 {
     public float sizeMultiplier = 1.5f;
+    public string perkDescription;  // 添加描述字段
     
     public override void ApplyEffect(GameObject target)
     {
@@ -18,6 +19,19 @@ public class BallSizePerk : Perk
         if (target.TryGetComponent<Transform>(out var transform))
         {
             transform.localScale /= sizeMultiplier;
+        }
+    }
+}
+[CreateAssetMenu(fileName = "BallSpeedPerk", menuName = "Perks/Ball/BallSpeedPerk")]
+public class BallSpeedPerk : Perk
+{
+    public float speedMultiplier = 1.5f;
+    
+    public override void ApplyEffect(GameObject target)
+    {
+        if (target.TryGetComponent<BallController>(out var ball))
+        {
+            ball.SetSpeedMultiplier(speedMultiplier);
         }
     }
 }
