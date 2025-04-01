@@ -18,8 +18,9 @@ public class PerkManager : MonoBehaviour
     
     private List<Perk> currentActivePerks = new List<Perk>();
     private BallController mainBall;                                // 主球
-    private List<BallController> splitBalls = new List<BallController>();  // 分裂的小球
+    private List<MonoBehaviour> splitBalls = new List<MonoBehaviour>();  // 分裂的小球
     private bool isPerkSelectionActive = false;
+    private Vector2 savedBallVelocity;                              // 保存小球速度
 
     private void Start()
     {
@@ -36,7 +37,7 @@ public class PerkManager : MonoBehaviour
     }
 
     // 添加分裂的小球
-    public void RegisterSplitBall(BallController ball)
+    public void RegisterSplitBall(MonoBehaviour ball)
     {
         if (!splitBalls.Contains(ball))
         {
@@ -45,7 +46,7 @@ public class PerkManager : MonoBehaviour
     }
 
     // 移除分裂的小球
-    public void UnregisterSplitBall(BallController ball)
+    public void UnregisterSplitBall(MonoBehaviour ball)
     {
         if (splitBalls.Contains(ball))
         {
@@ -58,6 +59,14 @@ public class PerkManager : MonoBehaviour
         if (isPerkSelectionActive) return;
         
         isPerkSelectionActive = true;
+        
+        // 保存当前速度并禁用控制器
+        if (mainBall != null)
+        {
+            savedBallVelocity = mainBall.GetComponent<Rigidbody2D>().velocity;
+            mainBall.controlDisabled = true;  // 禁用 BallController
+        }
+        
         Time.timeScale = 0f; // 暂停游戏
         
         // 随机选择3个perk
@@ -81,20 +90,13 @@ public class PerkManager : MonoBehaviour
         }
     }
 
-
     public void ApplyPerk(Perk perk)
     {
         // 只对主球应用新的 perk
         if (mainBall != null && perk.affectsBall)
         {
-            // 保存当前速度
-            Vector2 currentVelocity = mainBall.GetComponent<Rigidbody2D>().velocity;
-            
             // 应用 perk
             perk.ApplyEffect(mainBall.gameObject);
-            
-            // 恢复速度
-            mainBall.GetComponent<Rigidbody2D>().velocity = currentVelocity;
             
             // 只有非一次性 perk 才添加到当前激活列表
             if (!perk.isOneTime)
@@ -113,6 +115,13 @@ public class PerkManager : MonoBehaviour
         perkSelectionUI.SetActive(false);
         Time.timeScale = 1f;
         isPerkSelectionActive = false;
+        
+        // 恢复保存的速度并重新启用控制器
+        if (mainBall != null)
+        {
+            mainBall.GetComponent<Rigidbody2D>().velocity = savedBallVelocity;
+            mainBall.controlDisabled = false; // 重新启用 BallController
+        }
     }
 
     private System.Collections.IEnumerator RemovePerkAfterDelay(Perk perk, float delay)

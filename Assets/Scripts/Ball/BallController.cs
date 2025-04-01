@@ -12,7 +12,7 @@ public class BallController : MonoBehaviour
     public float timeSlowFactor = 0.3f;        //拖拽时减慢时间系数
     private Vector3 dragStartPos;         // 拖拽起点（世界坐标）
     private bool isDragging; 
-    private bool controlDisabled = false;
+    public bool controlDisabled = false;
     private bool isStuck = false; // 新增：标记小球是否处于黏住状态
     public LineRenderer dragLine;
 
@@ -33,14 +33,13 @@ public class BallController : MonoBehaviour
 
     protected List<Perk> activePerks = new List<Perk>();
     public GameObject childBallPrefab;
-    void Start()
+    protected virtual void Start()
     {
         // Get the Rigidbody2D component attached to the ball
         rb = GetComponent<Rigidbody2D>();
         Physics2D.queriesStartInColliders = false;
 
         ballRadius = GetComponent<CircleCollider2D>().radius;
-
     }
     void Update()
     {
@@ -110,7 +109,7 @@ public class BallController : MonoBehaviour
     }
 
     // 开始拖拽
-    void StartDrag()
+    protected virtual void StartDrag()
     {
         Time.timeScale = timeSlowFactor;
         Time.fixedDeltaTime = 0.02f * timeSlowFactor;
@@ -125,7 +124,7 @@ public class BallController : MonoBehaviour
     }
 
     // 拖拽过程中
-    void DuringDrag()
+    protected virtual void DuringDrag()
     {
         
         // 将鼠标位置转换为世界坐标
@@ -152,7 +151,7 @@ public class BallController : MonoBehaviour
     }
 
     // 结束拖拽，施加速度
-    void EndDrag()
+    protected virtual void EndDrag()
     {
         Time.timeScale = 1.0f;
         Time.fixedDeltaTime = 0.02f;
@@ -184,7 +183,7 @@ public class BallController : MonoBehaviour
         ballTracerLine.positionCount = 0;
     }
 
-    void DrawProjection(Vector2 start, Vector2 velocity)
+    protected virtual void DrawProjection(Vector2 start, Vector2 velocity)
     {
         Vector2 position = start;
         Vector2 direction = -velocity.normalized;
@@ -212,7 +211,7 @@ public class BallController : MonoBehaviour
 
 //-----------------------------------------各种碰撞-----------------------------------------
 
-    void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         // 如果小球刚发射，不处理黏住效果
         if (justLaunched) return;
