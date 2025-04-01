@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: BallSizePerk_03
   m_EditorClassIdentifier: Assembly-CSharp::BallSizePerk
-  perkName: 
+  perkName: 20% Bigger
   description: 
   icon: {fileID: 0}
   duration: 0
-  affectsBall: 0
+  affectsBall: 1
   affectsBrick: 0
-  sizeMultiplier: 1.5
+  isOneTime: 0
+  sizeMultiplier: 1.2
   perkDescription: 

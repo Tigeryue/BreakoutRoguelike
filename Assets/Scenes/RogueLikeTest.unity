@@ -16344,14 +16344,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allPerks:
-  - {fileID: 11400000, guid: c01fe814ed9c2ee468191917212df7d7, type: 2}
-  - {fileID: 11400000, guid: 8339c7a3ebe851f43a8628ff633e7814, type: 2}
-  - {fileID: 11400000, guid: 4169d4723e3e4e245951c7944d442f6e, type: 2}
+  - {fileID: 11400000, guid: 061af491788a11642a8b4faa7f729f7e, type: 2}
+  - {fileID: 11400000, guid: 71786ec0332298544b4ae4c8cad2529c, type: 2}
+  - {fileID: 11400000, guid: d0c60d49caa960940b333e48f612ea66, type: 2}
   perksToShow: 3
   perkSelectionUI: {fileID: 978161903}
-  perkButton1: {fileID: 858841131}
-  perkButton2: {fileID: 1954917886}
-  perkButton3: {fileID: 1143751733}
+  perkButtons:
+  - {fileID: 858841134}
+  - {fileID: 1954917883}
+  - {fileID: 1143751735}
 --- !u!4 &1860493684
 Transform:
   m_ObjectHideFlags: 0
@@ -18487,63 +18488,6 @@ MonoBehaviour:
   warningColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   criticalColor: {r: 1, g: 0, b: 0, a: 1}
   explosionEffectPrefab: {fileID: 0}
---- !u!1001 &7923834844022064835
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1457572773092836100, guid: c5ca10d898af0564091a5b9d8d800bef, type: 3}
-      propertyPath: m_Name
-      value: ChildBall
-      objectReference: {fileID: 0}
-    - target: {fileID: 3851604731798508130, guid: c5ca10d898af0564091a5b9d8d800bef, type: 3}
-      propertyPath: m_RootOrder
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 3851604731798508130, guid: c5ca10d898af0564091a5b9d8d800bef, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3851604731798508130, guid: c5ca10d898af0564091a5b9d8d800bef, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3851604731798508130, guid: c5ca10d898af0564091a5b9d8d800bef, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3851604731798508130, guid: c5ca10d898af0564091a5b9d8d800bef, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3851604731798508130, guid: c5ca10d898af0564091a5b9d8d800bef, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3851604731798508130, guid: c5ca10d898af0564091a5b9d8d800bef, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3851604731798508130, guid: c5ca10d898af0564091a5b9d8d800bef, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3851604731798508130, guid: c5ca10d898af0564091a5b9d8d800bef, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3851604731798508130, guid: c5ca10d898af0564091a5b9d8d800bef, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3851604731798508130, guid: c5ca10d898af0564091a5b9d8d800bef, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c5ca10d898af0564091a5b9d8d800bef, type: 3}
 --- !u!1001 &9206003103841226896
 PrefabInstance:
   m_ObjectHideFlags: 0

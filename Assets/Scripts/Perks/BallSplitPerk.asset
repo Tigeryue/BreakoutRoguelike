@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: BallSplitPerk
   m_EditorClassIdentifier: Assembly-CSharp::BallSplitPerk
-  perkName: 
+  perkName: Ball Split!
   description: 
   icon: {fileID: 0}
   duration: 0
   affectsBall: 1
   affectsBrick: 0
-  isOneTime: 0
+  isOneTime: 1
   splitAngle: 30
