@@ -75,4 +75,81 @@ public class BallSplitPerk : Perk
     }
 }
 
+[CreateAssetMenu(fileName = "BulletBallPerk", menuName = "Perks/Ball/BulletBallPerk")]
+public class BulletBallPerk : Perk
+{
+    public float fireInterval = 2f;  // 发射间隔
+    public float bulletSpeed = 10f;  // 子弹速度
+    public int bulletHealth = 3;     // 子弹生命值
+    public GameObject bulletBallPrefab;  // 子弹球预制体
+    
+    public override void ApplyEffect(GameObject target)
+    {
+        if (target.TryGetComponent<BallController>(out var ballController))
+        {
+            ballController.EnableBulletBall(this);
+        }
+    }
+    
+    public override void RemoveEffect(GameObject target)
+    {
+        if (target.TryGetComponent<BallController>(out var ballController))
+        {
+            ballController.DisableBulletBall();
+        }
+    }
+}
+
+[CreateAssetMenu(fileName = "BulletBallFireRatePerk", menuName = "Perks/Ball/BulletBallFireRatePerk")]
+public class BulletBallFireRatePerk : Perk
+{
+    public float fireIntervalReduction = 0.1f;  // 发射间隔减少值
+    
+    public override void ApplyEffect(GameObject target)
+    {
+        // 找到所有 BulletBallPerk 并减少它们的发射间隔
+        var bulletBallPerks = FindObjectsOfType<BulletBallPerk>();
+        foreach (var perk in bulletBallPerks)
+        {
+            perk.fireInterval = Mathf.Max(0.1f, perk.fireInterval - fireIntervalReduction);
+        }
+    }
+    
+    public override void RemoveEffect(GameObject target)
+    {
+        // 找到所有 BulletBallPerk 并恢复它们的发射间隔
+        var bulletBallPerks = FindObjectsOfType<BulletBallPerk>();
+        foreach (var perk in bulletBallPerks)
+        {
+            perk.fireInterval += fireIntervalReduction;
+        }
+    }
+}
+
+[CreateAssetMenu(fileName = "BulletBallSpeedPerk", menuName = "Perks/Ball/BulletBallSpeedPerk")]
+public class BulletBallSpeedPerk : Perk
+{
+    public float speedIncrease = 1f;  // 速度增加值
+    
+    public override void ApplyEffect(GameObject target)
+    {
+        // 找到所有 BulletBallPerk 并增加它们的子弹速度
+        var bulletBallPerks = FindObjectsOfType<BulletBallPerk>();
+        foreach (var perk in bulletBallPerks)
+        {
+            perk.bulletSpeed += speedIncrease;
+        }
+    }
+    
+    public override void RemoveEffect(GameObject target)
+    {
+        // 找到所有 BulletBallPerk 并恢复它们的子弹速度
+        var bulletBallPerks = FindObjectsOfType<BulletBallPerk>();
+        foreach (var perk in bulletBallPerks)
+        {
+            perk.bulletSpeed -= speedIncrease;
+        }
+    }
+}
+
 

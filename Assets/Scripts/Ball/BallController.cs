@@ -33,6 +33,12 @@ public class BallController : MonoBehaviour
 
     protected List<Perk> activePerks = new List<Perk>();
     public GameObject childBallPrefab;
+
+    // 子弹球相关
+    private BulletBallPerk currentBulletBallPerk;
+    private float nextFireTime;
+    private bool isBulletBallEnabled;
+
     protected virtual void Start()
     {
         // Get the Rigidbody2D component attached to the ball
@@ -77,6 +83,13 @@ public class BallController : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 EndDrag();
+            }
+
+            // 处理子弹球发射
+            if (isBulletBallEnabled && currentBulletBallPerk != null && Time.time >= nextFireTime)
+            {
+                FireBullets();
+                nextFireTime = Time.time + currentBulletBallPerk.fireInterval;
             }
         }
         
@@ -301,5 +314,47 @@ public class BallController : MonoBehaviour
     public void SetSpeedMultiplier(float multiplier)
     {
         maxSpeed *= multiplier;
+    }
+
+    public void EnableBulletBall(BulletBallPerk perk)
+    {
+        currentBulletBallPerk = perk;
+        isBulletBallEnabled = true;
+        nextFireTime = Time.time + perk.fireInterval;
+    }
+
+    public void DisableBulletBall()
+    {
+        isBulletBallEnabled = false;
+        currentBulletBallPerk = null;
+    }
+
+    private void FireBullets()
+    {
+        if (currentBulletBallPerk == null || currentBulletBallPerk.bulletBallPrefab == null) return;
+
+        // 随机选择一个角度
+        float randomAngle = Random.Range(0f, 360f);
+        
+        // 创建两个子弹球
+        for (int i = 0; i < 2; i++)
+        {
+            // 计算发射方向
+            float angle = randomAngle + (i == 0 ? 0f : 180f);
+            Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.right;
+            Vector2 velocity = direction * currentBulletBallPerk.bulletSpeed;
+            
+            // 创建子弹球
+            GameObject bulletObj = Instantiate(currentBulletBallPerk.bulletBallPrefab, transform.position, Quaternion.identity);
+            BulletBall bullet = bulletObj.GetComponent<BulletBall>();
+            if (bullet != null)
+            {
+                bullet.maxHealth = currentBulletBallPerk.bulletHealth;
+                // 设置子弹球的大小
+                bulletObj.transform.localScale = transform.localScale;
+                // 初始化子弹球
+                bullet.Initialize(velocity);
+            }
+        }
     }
 }
